@@ -1,0 +1,31 @@
+//最长不重复字符的字符串长度
+#include<stdio.h>
+int a(char* s){
+	int freq[256] = { 0 };
+	int left = 0, right = -1;//窗口
+	int res = 0;
+	int len = sizeof(s);
+	while (left < len)
+	{
+		if ((right + 1 < len) && (freq[s[right + 1]] == 0))
+		{
+			right++;
+			freq[s[right]]++;
+		}
+		else//right+1==len  && freq[s[right+1]]==1;
+		{
+			freq[s[left]]--;
+			left++;
+		}
+		res = res > right - left + 1 ? res:right - left + 1;
+	}
+	return res;
+}
+int main()
+{
+	char s[]="abcabcbb";
+	printf("%s\n", s);
+	int r = a(s);
+	printf("%d\n", r);
+	return 0;
+}
